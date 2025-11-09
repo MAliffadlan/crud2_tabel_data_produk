@@ -1,20 +1,20 @@
 <?php
-include "../koneksi.php"; // Path '../' sekarang BENAR
+include "../koneksi.php"; 
 
-// 1. Ambil data dari POST
+
 $id_produk   = $_POST['id_produk'];
 $nama_produk = $_POST['nama_produk'];
 $kategori_id = $_POST['kategori_id'];
 $harga       = $_POST['harga'];
 $gambar_lama = $_POST['gambar_lama'];
-$nama_file_baru = $gambar_lama; // Default adalah nama file lama
+$nama_file_baru = $gambar_lama; 
 
-// 2. Cek apakah user upload gambar BARU
+
 if (!empty($_FILES['gambar']['name'])) {
-    // Logika upload file baru
-    $target_dir = "../uploads/"; // Path '../' sekarang BENAR
+    
+    $target_dir = "../uploads/"; 
     $nama_file  = basename($_FILES["gambar"]["name"]);
-    $nama_file_baru = uniqid() . "-" . str_replace(' ', '-', $nama_file); // Nama file baru yang unik
+    $nama_file_baru = uniqid() . "-" . str_replace(' ', '-', $nama_file); 
     $target_file = $target_dir . $nama_file_baru;
     $uploadOk = 1;
     $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
@@ -28,9 +28,9 @@ if (!empty($_FILES['gambar']['name'])) {
         $uploadOk = 0;
     }
     
-    // Jika upload file baru berhasil
+    
     if ($uploadOk == 1 && move_uploaded_file($_FILES["gambar"]["tmp_name"], $target_file)) {
-        // Hapus file gambar LAMA
+        
         if (file_exists($target_dir . $gambar_lama)) {
             unlink($target_dir . $gambar_lama);
         }
@@ -39,7 +39,7 @@ if (!empty($_FILES['gambar']['name'])) {
     }
 }
 
-// 3. Update data ke Database
+
 $sql = "UPDATE produk SET 
             kategori_id = ?, 
             nama_produk = ?, 
@@ -51,8 +51,8 @@ $stmt = mysqli_prepare($conn, $sql);
 mysqli_stmt_bind_param($stmt, "isssi", $kategori_id, $nama_produk, $harga, $nama_file_baru, $id_produk);
 
 if (mysqli_stmt_execute($stmt)) {
-    // Jika berhasil, redirect ke halaman utama
-    header("Location: ../index.php"); // Path '../' sekarang BENAR
+    
+    header("Location: ../index.php"); 
     exit();
 } else {
     echo "Error: " . mysqli_error($conn);

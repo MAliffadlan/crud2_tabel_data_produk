@@ -28,7 +28,7 @@
                             <select class="form-select" id="kategori" name="kategori_id" required>
                                 <option value="">- Pilih Kategori -</option>
                                 <?php
-                                include "../koneksi.php"; // Path '../' sekarang BENAR
+                                include "../koneksi.php"; 
                                 $query_kategori = mysqli_query($conn, "SELECT * FROM kategori ORDER BY nama_kategori ASC");
                                 while ($kat = mysqli_fetch_assoc($query_kategori)) {
                                     echo "<option value='" . $kat['id_kategori'] . "'>" . htmlspecialchars($kat['nama_kategori']) . "</option>";

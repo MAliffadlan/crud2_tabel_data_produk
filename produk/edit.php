@@ -1,10 +1,8 @@
 <?php
-include "../koneksi.php"; // Path '../' sekarang BENAR
+include "../koneksi.php"; 
 
-// Ambil ID dari URL
 $id_produk = $_GET['id'];
 
-// Query untuk ambil data produk yang spesifik
 $query_data = mysqli_query($conn, "SELECT * FROM produk WHERE id_produk = $id_produk");
 $data = mysqli_fetch_assoc($query_data);
 

@@ -1,7 +1,7 @@
 <?php
-include "../koneksi.php"; // Path '../' sekarang BENAR
+include "../koneksi.php"; 
 
-// Logika untuk TAMBAH kategori
+
 if (isset($_POST['submit_kategori'])) {
     $nama_kategori = $_POST['nama_kategori'];
     
@@ -11,7 +11,7 @@ if (isset($_POST['submit_kategori'])) {
         mysqli_stmt_bind_param($stmt, "s", $nama_kategori);
         
         if (mysqli_stmt_execute($stmt)) {
-            // Refresh halaman agar data baru muncul
+            
             header("Location: kelola.php");
             exit();
         } else {
